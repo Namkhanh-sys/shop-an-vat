@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Nhà Cho Thuê - Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <!-- Thêm FontAwesome để sử dụng icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img id="header-logo" src="" alt="Logo" class="header-logo" />
+            </div>
+            <h1>Quản Lý Nhà Cho Thuê</h1>
+            <nav>
+                <!-- Đã xóa các liên kết Trang Chủ và Đăng Xuất -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="admin-container">
+            <!-- Cột bên trái: Quản lý Logo và Thêm Nhà -->
+            <div class="sidebar">
+                <!-- Form Quản Lý Logo Chung -->
+                <div class="form-container card">
+                    <h2><i class="fas fa-image"></i> Quản Lý Logo</h2>
+                    <form id="update-logo-form" class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="site-logo">Link Logo Trang Web</label>
+                            <input type="url" id="site-logo" name="site-logo" placeholder="Nhập URL logo" />
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width"><i class="fas fa-sync-alt"></i> Cập Nhật Logo</button>
+                    </form>
+                </div>
+
+                <!-- Form Thêm Nhà -->
+                <div class="form-container card">
+                    <h2><i class="fas fa-plus-circle"></i> Thêm Nhà Mới</h2>
+                    <form id="add-house-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="house-name">Tên nhà</label>
+                            <input type="text" id="house-name" name="house-name" placeholder="Nhập tên nhà" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="house-price">Giá thuê (VNĐ/tháng)</label>
+                            <input type="number" id="house-price" name="house-price" placeholder="Nhập giá thuê" min="1" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="house-area">Diện tích (m²)</label>
+                            <input type="number" id="house-area" name="house-area" placeholder="Nhập diện tích" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="house-address">Địa chỉ</label>
+                            <input type="text" id="house-address" name="house-address" placeholder="Nhập địa chỉ" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="house-bedrooms">Số phòng ngủ</label>
+                            <input type="number" id="house-bedrooms" name="house-bedrooms" placeholder="Nhập số phòng ngủ" min="1" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="house-bathrooms">Số phòng tắm</label>
+                            <input type="number" id="house-bathrooms" name="house-bathrooms" placeholder="Nhập số phòng tắm" min="1" required />
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="house-image">Link ảnh</label>
+                            <input type="url" id="house-image" name="house-image" placeholder="Nhập URL ảnh" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width"><i class="fas fa-plus"></i> Thêm Nhà</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cột bên phải: Danh Sách Nhà -->
+            <div class="content">
+                <div class="table-container card">
+                    <h2><i class="fas fa-list"></i> Danh Sách Nhà Cho Thuê</h2>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên Nhà</th>
+                                    <th>Thông Tin</th>
+                                    <th>Ảnh</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="house-list">
+                                <!-- Dữ liệu sẽ được render bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Chỉnh Sửa -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">×</span>
+            <h2><i class="fas fa-edit"></i> Chỉnh Sửa Nhà</h2>
+            <form id="edit-house-form" class="form-grid">
+                <div class="form-group">
+                    <label for="edit-house-id">ID</label>
+                    <input type="text" id="edit-house-id" name="edit-house-id" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-name">Tên nhà</label>
+                    <input type="text" id="edit-house-name" name="edit-house-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-price">Giá thuê (VNĐ/tháng)</label>
+                    <input type="number" id="edit-house-price" name="edit-house-price" min="1" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-area">Diện tích (m²)</label>
+                    <input type="number" id="edit-house-area" name="edit-house-area" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-address">Địa chỉ</label>
+                    <input type="text" id="edit-house-address" name="edit-house-address" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-bedrooms">Số phòng ngủ</label>
+                    <input type="number" id="edit-house-bedrooms" name="edit-house-bedrooms" min="1" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-house-bathrooms">Số phòng tắm</label>
+                    <input type="number" id="edit-house-bathrooms" name="edit-house-bathrooms" min="1" required />
+                </div>
+                <div class="form-group full-width">
+                    <label for="edit-house-image">Link ảnh</label>
+                    <input type="url" id="edit-house-image" name="edit-house-image" required />
+                </div>
+                <button type="submit" class="btn btn-primary full-width"><i class="fas fa-save"></i> Lưu Thay Đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
